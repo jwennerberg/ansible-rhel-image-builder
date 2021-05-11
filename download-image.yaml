@@ -1,0 +1,14 @@
+- name: Generate In-Memory Inventory of OpenShift VMs
+  hosts: localhost
+
+- hosts: imagebuilder
+  become: yes
+  vars:
+    image_type: ami
+    image_size: 2048
+    image_file_type: raw
+  tasks:
+    - name: Download image
+      include_role:
+        name: content-download-upload
+        tasks_from: download.yaml

@@ -1,0 +1,11 @@
+- name: Configure Image Builder VM
+  hosts: imagebuilder
+  become: yes
+  vars:
+    image_type: ami
+    image_size: 2048
+    blueprint_source_dir: blueprints/rhel8-base
+  tasks:
+    - name: Build image
+      include_role:
+        name: build-image

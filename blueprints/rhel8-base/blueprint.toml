@@ -1,0 +1,41 @@
+name = "rhel8-base"
+description = "RHEL 8 SOE Base image"
+version = "0.1.0"
+modules = []
+groups = []
+
+[[packages]]
+name = "curl"
+version = "*"
+
+[[packages]]
+name = "file"
+version = "*"
+
+[[packages]]
+name = "git"
+version = "*"
+
+[[packages]]
+name = "gnupg2"
+version = "*"
+
+[[packages]]
+name = "sudo"
+version = "*"
+
+[[packages]]
+name = "tar"
+version = "*"
+
+[[packages]]
+name = "xz"
+version = "*"
+
+[[packages]]
+name = "python3-pip"
+version = "*"
+
+[[customizations.user]]
+name = "root"
+key = "ssh-rsa key-here"

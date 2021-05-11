@@ -1,0 +1,10 @@
+---
+#build_commit:
+
+base_dir: /opt/rhel-image
+base_builds_dir: "{{ base_dir }}/builds"
+
+local_build_dir: "/tmp/rhel-image-build"
+
+artifact_repository_url_output_file: "/tmp/artifact-repository-storage-url"
+storage_url_output_file: "/tmp/serving-storage-url"

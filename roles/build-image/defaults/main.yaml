@@ -1,0 +1,4 @@
+---
+base_dir: /opt/rhel-image
+base_blueprints_dir: "{{ base_dir }}/blueprints"
+build_output_file: /tmp/rhel-image-uuid
