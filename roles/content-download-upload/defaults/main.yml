@@ -1,5 +1,5 @@
 ---
-#build_commit:
+#build_uuid:
 
 base_dir: /opt/rhel-image
 base_builds_dir: "{{ base_dir }}/builds"

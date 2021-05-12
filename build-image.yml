@@ -9,3 +9,7 @@
     - name: Build image
       include_role:
         name: build-image
+    - name: Set build UUID
+      ansible.builtin.set_stats:
+        data:
+          build_uuid: "{{ build_id }}"

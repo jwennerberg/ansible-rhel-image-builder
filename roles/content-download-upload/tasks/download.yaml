@@ -1,9 +1,9 @@
 ---
-- name: Assert Commit ID has been Provided
+- name: Assert build UUID has been Provided
   assert:
     that:
-      - build_commit is defined
-      - build_commit != ""
+      - build_uuid is defined
+      - build_uuid != ""
 
 - name: Check if Build ID is valid
   command: >
@@ -13,13 +13,13 @@
 
 - name: Assert finished Build ID found
   assert:
-    fail_msg: "Did not find a valid finished build for the commit id"
+    fail_msg: "Did not find a valid finished build for the build uuid"
     that:
-      - compose_list.stdout | from_json | selectattr('id','equalto',build_commit) | list | length == 1
+      - compose_list.stdout | from_json | selectattr('id','equalto',build_uuid) | list | length == 1
 
 - name: Set Build Directory
   set_fact:
-    build_dir: "{{ base_builds_dir }}/{{ build_commit }}"
+    build_dir: "{{ base_builds_dir }}/{{ build_uuid }}"
 
 - name: Create Blueprints Directory
   file:
@@ -28,14 +28,14 @@
 
 - name: Set Downloaded File Path
   set_fact:
-    image_downloaded_file_path: "{{ local_build_dir }}/{{ build_commit }}-image.{{ image_file_type }}"
+    image_downloaded_file_path: "{{ local_build_dir }}/{{ build_uuid }}-image.{{ image_file_type }}"
 
 - name: Download Image
   command: >
-    composer-cli compose image {{ build_commit }}
+    composer-cli compose image {{ build_uuid }}
   args:
     chdir: "{{ build_dir }}"
-    creates: "{{ build_dir }}/{{ build_commit }}-image.{{ image_file_type }}"
+    creates: "{{ build_dir }}/{{ build_uuid }}-image.{{ image_file_type }}"
 
 - name: Create Local Build Directory
   local_action: file state=directory path="{{ local_build_dir }}"
@@ -45,7 +45,7 @@
 - name: Fetch Image file
   become: no
   fetch:
-    src: "{{ build_dir }}/{{ build_commit }}-image.{{ image_file_type }}"
+    src: "{{ build_dir }}/{{ build_uuid }}-image.{{ image_file_type }}"
     dest: "{{ image_downloaded_file_path }}"
     flat: yes
 
