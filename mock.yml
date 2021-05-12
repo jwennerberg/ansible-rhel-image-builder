@@ -1,0 +1,6 @@
+- name: Noop playbook
+  hosts: localhost
+  tasks:
+    - name: Mock message
+      ansible.builtin.debug:
+        msg: "mock: {{ mock_message }}"
