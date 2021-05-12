@@ -11,6 +11,7 @@
 #        username: "{{ lookup('file', '/var/secrets/redhat-portal-credentials/username') }}"
 #        password: "{{ lookup('file', '/var/secrets/redhat-portal-credentials/password') }}"
 #        pool_ids: "{{ lookup('file', '/var/secrets/redhat-portal-credentials/pool_id') }}"
+#      tags: repos
 
     - name: Setup Repositories
       community.general.rhsm_repository:
@@ -19,6 +20,7 @@
         name:
           - rhel-8-for-x86_64-appstream-rpms
           - rhel-8-for-x86_64-baseos-rpms
+      tags: repos
 
     - name: Install Packages
       ansible.builtin.dnf:
