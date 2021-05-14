@@ -1,7 +1,12 @@
 - name: Manage s3 bucket
   hosts: localhost
   tasks:
+    - name: Create an empty bucket
+      amazon.aws.aws_s3:
+        bucket: rhel-soe
+        mode: create
+
     - name: List keys
       amazon.aws.aws_s3:
-        bucket: mybucket
+        bucket: rhel-soe
         mode: list
