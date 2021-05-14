@@ -1,0 +1,7 @@
+- name: Manage s3 bucket
+  hosts: localhost
+  tasks:
+    - name: List keys
+      amazon.aws.aws_s3:
+        bucket: mybucket
+        mode: list
