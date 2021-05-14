@@ -1,19 +1,21 @@
-- name: Manage s3 bucket
+- name: Upload image to AWS
   hosts: localhost
+  vars:
+    bucket_name: rhel-soe
   tasks:
-    - name: Caller info
-      amazon.aws.aws_caller_info:
-      register: result_aws_caller
-
-    - debug:
-        msg: "{{ result_aws_caller }}"
-
-    - name: Create an empty bucket
+    - name: Create s3 bucket
       amazon.aws.aws_s3:
-        bucket: rhel-soe
+        bucket: "{{ bucket_name }}"
         mode: create
+
+    - name: Add image file to s3
+      amazon.aws.aws_s3:
+        bucket: "{{ bucket_name }}"
+        object: "{{ build_uuid }}.raw"
+        src: "{{ image_file_path }}"
+        mode: put
 
     - name: List keys
       amazon.aws.aws_s3:
-        bucket: rhel-soe
+        bucket: "{{ bucket_name }}"
         mode: list
