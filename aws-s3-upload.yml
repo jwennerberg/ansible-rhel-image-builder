@@ -1,6 +1,13 @@
 - name: Manage s3 bucket
   hosts: localhost
   tasks:
+    - name: Caller info
+      amazon.aws.aws_caller_info:
+      register: result_aws_caller
+
+    - debug:
+        msg: "{{ result_aws_caller }}"
+
     - name: Create an empty bucket
       amazon.aws.aws_s3:
         bucket: rhel-soe
