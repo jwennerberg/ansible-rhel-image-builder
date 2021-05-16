@@ -27,5 +27,6 @@
 - name: Create AMI
   amazon.aws.ec2_ami:
     image_location: "{{ image_location_s3 }}"
+    region: "{{ aws_region }}"
     wait: yes
     name: "{{ bucket_name }}-{{ build_uuid }}"
