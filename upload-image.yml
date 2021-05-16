@@ -1,0 +1,16 @@
+- name: Upload image
+  hosts: localhost
+  vars:
+    bucket_name: rhel-soe
+    cloud_provider: aws
+  tasks:
+    - name: Upload image artifact
+      ansible.builtin.include_role:
+        name: content-download-upload
+        tasks_from: "upload-{{ cloud_provider }}.yml"
+
+    - name: Save image info
+      ansible.builtin.set_stats:
+        data:
+          build_uuid: "{{ build_uuid }}"
+

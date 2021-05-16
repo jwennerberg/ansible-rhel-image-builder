@@ -12,3 +12,9 @@
       include_role:
         name: content-download-upload
         tasks_from: download.yaml
+
+    - name: Save image downloaded path
+      ansible.builtin.set_stats:
+        data:
+          build_uuid: "{{ build_uuid }}"
+          image_file_path: "{{ image_downloaded_file_path }}"

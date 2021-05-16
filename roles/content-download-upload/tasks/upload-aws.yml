@@ -1,0 +1,27 @@
+- name: Create s3 bucket
+  amazon.aws.aws_s3:
+    bucket: "{{ bucket_name }}"
+    mode: create
+
+- name: Add image file to s3
+  amazon.aws.aws_s3:
+    bucket: "{{ bucket_name }}"
+    object: "{{ build_uuid }}.raw"
+    src: "{{ image_file_path }}"
+    mode: put
+  register: image_upload
+
+- name: Debug image_upload
+  ansible.builtin.debug:
+    msg: "{{ image_upload }}"
+
+- name: List keys
+  amazon.aws.aws_s3:
+    bucket: "{{ bucket_name }}"
+    mode: list
+
+#- name: Create AMI
+#  amazon.aws.ec2_ami:
+#    instance_location: i-xxxxxx
+#    wait: yes
+#    name: newtest
