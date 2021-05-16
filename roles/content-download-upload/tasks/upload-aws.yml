@@ -26,7 +26,12 @@
 
 - name: Create AMI
   amazon.aws.ec2_ami:
-    image_location: "{{ image_location_s3 }}"
     region: "{{ aws_region }}"
     wait: yes
     name: "{{ bucket_name }}-{{ build_uuid }}"
+    image_location: "{{ image_location_s3 }}"
+    device_mapping:
+      - device_name: /dev/sda1
+        size: 6
+        delete_on_termination: true
+        volume_type: gp2
