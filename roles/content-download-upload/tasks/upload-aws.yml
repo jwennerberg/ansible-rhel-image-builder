@@ -20,8 +20,12 @@
     bucket: "{{ bucket_name }}"
     mode: list
 
-#- name: Create AMI
-#  amazon.aws.ec2_ami:
-#    instance_location: i-xxxxxx
-#    wait: yes
-#    name: newtest
+- name: Set image location
+  set_fact:
+    image_location_s3: "https://{{ bucket_name }}.s3.amazonaws.com/{{ build_uuid }}.raw"
+
+- name: Create AMI
+  amazon.aws.ec2_ami:
+    image_location: "{{ image_location_s3 }}"
+    wait: yes
+    name: "{{ bucket_name }}-{{ build_uuid }}"
