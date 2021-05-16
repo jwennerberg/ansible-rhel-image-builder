@@ -10,10 +10,7 @@
     src: "{{ image_file_path }}"
     mode: put
   register: image_upload
-
-- name: Debug image_upload
-  ansible.builtin.debug:
-    msg: "{{ image_upload }}"
+  tags: upload_image
 
 - name: List keys
   amazon.aws.aws_s3:
@@ -22,7 +19,7 @@
 
 - name: Set image location
   set_fact:
-    image_location_s3: "https://{{ bucket_name }}.s3.amazonaws.com/{{ build_uuid }}.raw"
+    image_location_s3: "s3://{{ bucket_name }}/{{ build_uuid }}.raw"
 
 - name: Create AMI
   amazon.aws.ec2_ami:
